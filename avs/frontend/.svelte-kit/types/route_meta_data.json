@@ -1,0 +1,15 @@
+{
+	"/": [],
+	"/chat": [],
+	"/detail/[uid]": [
+		"src/routes/detail/[uid]/+page.js"
+	],
+	"/home": [],
+	"/login": [],
+	"/logout": [],
+	"/regist": [],
+	"/regist/confirm": [],
+	"/regist/confirm/mail": [],
+	"/regist/confirm/over": [],
+	"/settings": []
+}
