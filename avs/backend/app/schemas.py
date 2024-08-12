@@ -48,7 +48,7 @@ class VolunteerInfo(VolunteerInfoBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class NewsInfoBase(BaseModel):
     title: str
@@ -63,7 +63,7 @@ class NewsInfo(NewsInfoBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class UidList(BaseModel):
     uids: List[str]
@@ -77,4 +77,4 @@ class Subscription(BaseModel):
     keys: Dict[str, str]
 
     class Config:
-        orm_mode = True
+        from_attributes = True

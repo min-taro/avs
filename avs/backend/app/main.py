@@ -18,7 +18,7 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+# app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 @app.post("/register")
 def register(user: schemas.UserCreate, db: Session = Depends(get_db)):

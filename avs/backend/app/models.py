@@ -24,8 +24,8 @@ class VolunteerInfo(Base):
     id = Column(Integer, primary_key=True, index=True)
     uid = Column(String(255), unique=True, index=True)
     title = Column(String(255))
-    date = Column(String)
-    updateDate = Column(String, nullable=True)
+    date = Column(String(50))
+    updateDate = Column(String(50), nullable=True)
     provider = Column(String(255))
     content = Column(Text)
     sdgs = Column(Text)
@@ -36,8 +36,8 @@ class NewsInfo(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(255))
-    date = Column(String)
-    updateDate = Column(String, nullable=True)
+    date = Column(String(50))
+    updateDate = Column(String(50), nullable=True)
     content = Column(Text)
 
 class Subscription(Base):

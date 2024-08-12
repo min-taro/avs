@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
     frontend:
         build: ./frontend
@@ -8,20 +6,26 @@ services:
         volumes:
             - ./frontend:/app
             - /app/node_modules
+        networks:
+            - mynetwork
 
     backend:
         build: ./backend
         ports:
             - "8000:8000"
         volumes:
-            - ./backend:/app
+            - ./backend/app:/app
         depends_on:
             - db
+        environment:
+            - DATABASE_URL=mysql+pymysql://myuser:mypassword@db/myapp
+        networks:
+            - mynetwork
 
     db:
         image: mariadb:11.4.2
         ports:
-            - "3307:3306"
+            - "3306:3306"
         volumes:
             - mariadb_data:/var/lib/mysql
         environment:
@@ -29,6 +33,12 @@ services:
             - MYSQL_DATABASE=myapp
             - MYSQL_USER=myuser
             - MYSQL_PASSWORD=mypassword
+        networks:
+            - mynetwork
 
 volumes:
     mariadb_data:
+
+networks:
+    mynetwork:
+        driver: bridge
