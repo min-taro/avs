@@ -92,6 +92,10 @@ def get_volunteer_info(uid: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Volunteer not found")
     return volunteer_info
 
+@app.get("/health")
+def read_health():
+    return {"status": "ok"}
+
 #####WebPush#####
 
 subscriptions = []

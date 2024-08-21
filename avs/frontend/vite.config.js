@@ -38,7 +38,7 @@ export default defineConfig({
 				rewrite: (path) => path.replace(/^\/dify/, '')
 			},
 			'/backend': {
-				target: 'http://localhost:8000',
+				target: 'http://backend:8000',
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/backend/, '')
 			}
