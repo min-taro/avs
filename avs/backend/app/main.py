@@ -35,9 +35,19 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="メールアドレスまたはパスワードが間違っています")
     return schemas.UserResponse(username=authenticated_user.username, role=authenticated_user.role)
 
-@app.post("/settings", response_model=schemas.SettingResponse)
-def upsert_setting(setting: schemas.SettingCreate, db: Session = Depends(get_db)):
-    return crud.upsert_setting(db, setting)
+#@app.post("/settings", response_model=schemas.SettingResponse)
+#def upsert_setting(setting: schemas.SettingCreate, db: Session = Depends(get_db)):
+    #return crud.upsert_setting(db, setting)
+
+@app.get("/settings", response_model=schemas.SettingResponse)
+def get_setting(db: Session = Depends(get_db)):
+    print("Accessing /settings endpoint")
+    setting = crud.get_setting(db)
+    if not setting:
+        print("Setting not found")
+        raise HTTPException(status_code=404, detail="Setting not found")
+    print("Setting found:", setting)
+    return setting
 
 @app.get("/settings", response_model=schemas.SettingResponse)
 def get_setting(db: Session = Depends(get_db)):

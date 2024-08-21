@@ -1,3 +1,3 @@
 FROM mariadb:11.4.2
 
-COPY init.sql /docker-entrypoint-initdb.d/
+COPY data_dump.sql /docker-entrypoint-initdb.d/

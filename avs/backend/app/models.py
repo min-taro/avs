@@ -18,6 +18,7 @@ class Setting(Base):
     updateDate = Column(Boolean)
     llm = Column(String(50))
 
+
 class VolunteerInfo(Base):
     __tablename__ = 'volunteer_infos'
 
