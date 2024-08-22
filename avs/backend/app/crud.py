@@ -23,14 +23,8 @@ def authenticate_user(db: Session, email: str, password: str):
         return user
     return None
 
-#def get_setting(db: Session):
-#    return db.query(models.Setting).first()
-
 def get_setting(db: Session):
-    print("Fetching setting from database")
-    setting = db.query(models.Setting).first()
-    print("Setting fetched:", setting)
-    return setting
+    return db.query(models.Setting).first()
 
 def upsert_setting(db: Session, setting: schemas.SettingCreate):
     existing_setting = get_setting(db)

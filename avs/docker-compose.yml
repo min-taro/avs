@@ -8,6 +8,7 @@ services:
             - /app/node_modules
         networks:
             - mynetwork
+            - default
 
     backend:
         build: ./backend
@@ -17,10 +18,11 @@ services:
             - ./backend/app:/app
         depends_on:
             - db
-        environment:
-            - DATABASE_URL=mysql+pymysql://root:rootpassword@db/user_db
+#        environment:
+#            - DATABASE_URL=mysql+pymysql://myuser:mypassword@db/user_db
         networks:
             - mynetwork
+            - default
 
     db:
         build: ./database
@@ -30,11 +32,13 @@ services:
         volumes:
             - mariadb_data:/var/lib/mysql
         environment:
+            - MYSQL_ROOT_PASSWORD=rootpassword
             - MYSQL_DATABASE=user_db
-            - MYSQL_USER=root
-            - MYSQL_PASSWORD=rootpassword
+            - MYSQL_USER=myuser
+            - MYSQL_PASSWORD=mypassword
         networks:
             - mynetwork
+            - default
 
 volumes:
     mariadb_data:

@@ -33,7 +33,7 @@ export default defineConfig({
 		},
 		proxy: {
 			'/dify': {
-				target: 'http://localhost',
+				target: 'http://host.docker.internal',
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/dify/, '')
 			},

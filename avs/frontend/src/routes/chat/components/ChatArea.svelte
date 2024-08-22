@@ -13,7 +13,7 @@
 	export let search_result;
 
 	let llm = writable('Phi-3');
-	let llm_api_key = 'app-JkbJNP2QFPUn9QuhAee8Isx6';
+	let llm_api_key = 'app-uRPy0JQZGtw2mU12OvkU15tb';
 
 	let messages = [];
 	let newMessage = '';
@@ -62,7 +62,7 @@
 				llm.set(settings.llm);
 				switch (llm) {
 					case 'Phi-3':
-						llm_api_key = 'app-JkbJNP2QFPUn9QuhAee8Isx6';
+						llm_api_key = 'app-uRPy0JQZGtw2mU12OvkU15tb';
 						break;
 					case 'Gemma':
 						llm_api_key = 'app-CO4HcuVIkvE4DdRl0Ittssvj';
@@ -71,7 +71,7 @@
 						llm_api_key = 'app-HfvhzBh4MqmNMjJeFHQ0c1H0';
 						break;
 					default:
-						llm_api_key = 'app-JkbJNP2QFPUn9QuhAee8Isx6';
+						llm_api_key = 'app-uRPy0JQZGtw2mU12OvkU15tb';
 						break;
 				}
 			} else {
