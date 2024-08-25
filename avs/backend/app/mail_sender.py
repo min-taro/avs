@@ -13,7 +13,7 @@ def send_registration_email(email: str, username: str):
     msg["To"] = email
     msg["Subject"] = "avs 会員登録完了のお知らせ"
 
-    body = f"{username}様,\n\n ご登録ありがとうございます。\n\n http://160.251.211.133/regist/confirm/over"
+    body = f"{username}様,\n\n ご登録ありがとうございます。"
     msg.attach(MIMEText(body, "plain"))
 
     with smtplib.SMTP(smtp_server, smtp_port) as server:

@@ -13,7 +13,17 @@
 	export let search_result;
 
 	let llm = writable('Phi-3');
-	let llm_api_key = 'app-uRPy0JQZGtw2mU12OvkU15tb';
+	let llm_api_key = writable('');
+
+	const API_KEYS = {
+		'Phi-3': 'app-uRPy0JQZGtw2mU12OvkU15tb',
+		'Gemma': 'app-uK07HgFE9RZVlWXDYL5ggE3K',
+		'japanese-stablelm': 'app-pUzHqDnYjGc6KffOUu1Z08xk'
+	};
+
+	function updateApiKey(selectedLlm) {
+		llm_api_key.set(API_KEYS[selectedLlm] || API_KEYS['Phi-3']);
+	}
 
 	let messages = [];
 	let newMessage = '';
@@ -60,20 +70,7 @@
 			if (response.ok) {
 				const settings = await response.json();
 				llm.set(settings.llm);
-				switch (llm) {
-					case 'Phi-3':
-						llm_api_key = 'app-uRPy0JQZGtw2mU12OvkU15tb';
-						break;
-					case 'Gemma':
-						llm_api_key = 'app-CO4HcuVIkvE4DdRl0Ittssvj';
-						break;
-					case 'japanese-stablelm':
-						llm_api_key = 'app-HfvhzBh4MqmNMjJeFHQ0c1H0';
-						break;
-					default:
-						llm_api_key = 'app-uRPy0JQZGtw2mU12OvkU15tb';
-						break;
-				}
+				updateApiKey(settings.llm);
 			} else {
 				console.error('設定の取得に失敗しました');
 			}
@@ -81,6 +78,10 @@
 			console.error('エラーが発生しました: ' + error.message);
 		}
 	});
+
+	$: {
+		updateApiKey($llm);
+	}
 
 	async function handleChildFinished() {
 		messageSystemFinished = true;
@@ -111,7 +112,7 @@
 				const response = await fetch('/dify/v1/workflows/run', {
 					method: 'POST',
 					headers: {
-						Authorization: `Bearer ${llm_api_key}`,
+						Authorization: `Bearer ${$llm_api_key}`,
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({

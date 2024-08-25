@@ -1,10 +1,16 @@
 <script>
 	import { get } from 'svelte/store';
+	import { goto } from '$app/navigation';
 	import { email } from '../../../../../store';
 
 	let userEmail = '';
 
 	$: userEmail = get(email) || 'user@example.com';
+
+	function goToChat() {
+		goto('/chat');
+	}
+
 </script>
 
 <div class="flex min-h-screen items-center justify-center bg-gray-100">
@@ -18,6 +24,7 @@
 		</p>
 		<div class="flex justify-center">
 			<button class="btn btn-primary">メールを再送信</button>
+			<button class="btn btn-primary" on:click={goToChat}>チャットへ戻る</button>
 		</div>
 	</div>
 </div>

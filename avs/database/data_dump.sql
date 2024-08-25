@@ -133,7 +133,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES
-(1,'admin','$2b$12$t27icsx0jmD3oATKQcXh9.3Ye/4eWzu4.rOA.eF6klV/u/USl0bqe','admin@example.com','admin');
+(1,'admin','2b$12$t27icsx0jmD3oATKQcXh9.3Ye/4eWzu4.rOA.eF6','admin@example.com','admin');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
