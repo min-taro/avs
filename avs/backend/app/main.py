@@ -38,6 +38,13 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
 def upsert_setting(setting: schemas.SettingCreate, db: Session = Depends(get_db)):
     return crud.upsert_setting(db, setting)
 
+@app.get("/settings", response_model=schemas.SettingResponse)
+def get_setting(db: Session = Depends(get_db)):
+    setting = crud.get_setting(db)
+    if not setting:
+        raise HTTPException(status_code=404, detail="Setting not found")
+    return setting
+
 
 @app.post("/volunteer_infos", response_model=schemas.VolunteerInfo)
 def create_volunteer_info(volunteer_info: schemas.VolunteerInfoCreate, db: Session = Depends(get_db)):

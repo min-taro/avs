@@ -3,28 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { defineConfig } from 'vite';
 
-// Viteプラグインを作成してカスタムミドルウェアを追加
-function customMiddleware() {
-	return {
-		name: 'custom-timeout-middleware',
-		configureServer(server) {
-			server.middlewares.use((req, res, next) => {
-				// リクエストパスが /api/test の場合、test.json の内容を返す
-				if (req.url === '/api/test' && req.method === 'POST') {
-					const filePath = path.resolve(__dirname, 'test.json');
-					const data = fs.readFileSync(filePath, 'utf8');
-					res.setHeader('Content-Type', 'application/json');
-					res.end(data);
-				} else {
-					next();
-				}
-			});
-		}
-	};
-}
-
 export default defineConfig({
-	plugins: [sveltekit(), customMiddleware()],
+	plugins: [sveltekit()],
 	server: {
 		host: true,
 		port: 3000,
@@ -35,16 +15,13 @@ export default defineConfig({
 			'/dify': {
 				target: 'http://host.docker.internal',
 				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/dify/, '')
+				rewrite: (path) => path.replace(/^\/dify/, ''),
 			},
 			'/backend': {
 				target: 'http://backend:8000',
 				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/backend/, '')
+				rewrite: (path) => path.replace(/^\/backend/, ''),
 			}
 		}
-	},
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
 	}
 });

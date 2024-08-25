@@ -8,7 +8,8 @@ services:
             - /app/node_modules
         networks:
             - mynetwork
-            - default
+        depends_on:
+            - db
 
     backend:
         build: ./backend
@@ -17,12 +18,10 @@ services:
         volumes:
             - ./backend/app:/app
         depends_on:
-            - db
-#        environment:
-#            - DATABASE_URL=mysql+pymysql://myuser:mypassword@db/user_db
+            db:
+                condition: service_healthy
         networks:
             - mynetwork
-            - default
 
     db:
         build: ./database
@@ -32,13 +31,17 @@ services:
         volumes:
             - mariadb_data:/var/lib/mysql
         environment:
-            - MYSQL_ROOT_PASSWORD=rootpassword
-            - MYSQL_DATABASE=user_db
-            - MYSQL_USER=myuser
-            - MYSQL_PASSWORD=mypassword
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
         networks:
             - mynetwork
-            - default
+        healthcheck:
+            test: ["CMD", "mariadb", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}", "-e", "SELECT 1"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
 
 volumes:
     mariadb_data:

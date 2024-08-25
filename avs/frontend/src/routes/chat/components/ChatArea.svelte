@@ -106,8 +106,8 @@
 
 			try {
 				const controller = new AbortController();
-				const timeoutId = setTimeout(() => controller.abort(), 180000);
-
+				const timeoutId = setTimeout(() => controller.abort(), 600000);
+				
 				const response = await fetch('/dify/v1/workflows/run', {
 					method: 'POST',
 					headers: {
