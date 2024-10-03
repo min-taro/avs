@@ -19,3 +19,5 @@ jobs:
           script: |
             cd /usr/share/nginx/html/avs/
             git pull origin main
+            chmod -R 664 .
+            find . -type d -exec chmod 775 {} +
